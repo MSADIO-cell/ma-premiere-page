@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tout sur le lapin</title>
+    <style>
+        /* 1. Les couleurs, rangées dans des variables : on les change à un seul endroit */
+        :root {
+            --herbe: #2f6b3f;
+            --pre: #eaf4e1;
+            --carotte: #e8761c;
+            --texte: #26331f;
+            --blanc: #ffffff;
+        }
+
+        /* 2. Réglages de base de la page */
+        body {
+            margin: 0;
+            font-family: "Trebuchet MS", Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--texte);
+            background: var(--pre);
+        }
+
+        /* 3. Le bandeau du haut, qui contient le h1 */
+        header {
+            background: var(--herbe);
+            color: var(--blanc);
+            text-align: center;
+            padding: 48px 20px 40px;
+            border-bottom: 8px solid var(--carotte);
+        }
+        header h1 {
+            margin: 0 0 12px;
+            font-size: 2.6rem;
+        }
+        header p {
+            max-width: 560px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* 4. Le contenu principal, centré et pas trop large pour rester lisible */
+        main {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 24px 20px 48px;
+        }
+        h2 {
+            color: var(--herbe);
+            border-left: 6px solid var(--carotte);
+            padding-left: 12px;
+            margin-top: 40px;
+        }
+        h3 {
+            margin-bottom: 4px;
+        }
+
+        /* 5. La photo : elle ne dépasse jamais l'écran, coins arrondis */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 6. La liste des aliments : chaque puce devient un bouton cliquable */
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        li button {
+            font: inherit;
+            padding: 8px 16px;
+            border: 2px solid var(--carotte);
+            border-radius: 999px;
+            background: var(--blanc);
+            color: var(--texte);
+            cursor: pointer;
+        }
+        li button:hover,
+        li button:focus-visible {
+            background: var(--carotte);
+            color: var(--blanc);
+        }
+        li button.actif {
+            background: var(--carotte);
+            color: var(--blanc);
+        }
+
+        /* 7. La zone où s'affiche l'info quand on clique */
+        #info {
+            background: var(--blanc);
+            border-radius: 12px;
+            padding: 14px 18px;
+            min-height: 1.7em;
+        }
+
+        /* 8. Le pied de page */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--herbe);
+            color: var(--blanc);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tout sur le lapin</h1>
+        <p>Le lapin est un petit animal aux longues oreilles. On le trouve dans la nature, et beaucoup de familles l'adoptent comme animal de compagnie.</p>
+    </header>
+
+    <main>
+        <h2>Son apparence</h2>
+
+        <h3>Ses oreilles</h3>
+        <p>Ses longues oreilles lui permettent d'entendre les bruits de très loin.</p>
+
+        <h3>Son pelage</h3>
+        <p>Son pelage peut être blanc, gris, brun ou tacheté.</p>
+
+        <h3>Sa queue</h3>
+        <p>Sa queue est courte, ronde et toute douce, comme une petite boule de coton.</p>
+
+        <h2>Une photo de lapin</h2>
+        <img src="lapin.jpg" alt="Un lapin brun assis dans l'herbe" width="400">
+
+        <h2>Son alimentation</h2>
+        <p>Le lapin mange surtout du foin et de l'herbe. Il aime aussi quelques légumes frais. Clique sur un aliment pour en savoir plus.</p>
+        <ul>
+            <li><button type="button" data-info="Le foin est la base de son repas : il en mange tous les jours et il use ses dents.">Le foin</button></li>
+            <li><button type="button" data-info="Les carottes sont très sucrées : c'est une friandise, pas un repas.">Les carottes</button></li>
+            <li><button type="button" data-info="Le persil est riche en vitamines et il adore son goût.">Le persil</button></li>
+            <li><button type="button" data-info="Les feuilles de salade sont bonnes, mais à donner en petite quantité.">Les feuilles de salade</button></li>
+        </ul>
+        <p id="info">Choisis un aliment ci-dessus.</p>
+    </main>
+
+    <footer>
+        <p>Page créée pour apprendre le HTML, le CSS et le JavaScript.</p>
+    </footer>
+
+    <script>
+        // 1. On récupère les éléments de la page dont on a besoin
+        const boutons = document.querySelectorAll("li button");
+        const zoneInfo = document.getElementById("info");
+
+        // 2. Pour chaque bouton, on prépare une réaction au clic
+        boutons.forEach(function (bouton) {
+            bouton.addEventListener("click", function () {
+                // On enlève la couleur "actif" des autres boutons
+                boutons.forEach(function (autre) {
+                    autre.classList.remove("actif");
+                });
+                // On colore le bouton cliqué
+                bouton.classList.add("actif");
+                // On affiche le texte stocké dans data-info
+                zoneInfo.textContent = bouton.dataset.info;
+            });
+        });
+    </script>
+</body>
+</html>
